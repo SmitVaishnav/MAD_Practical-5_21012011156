@@ -17,36 +17,54 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val buttonBrowse:Button=findViewById(R.id.button_browse)
-        val editUrl:EditText=findViewById(R.id.editTextURL)
-        buttonBrowse.setOnClickListener{
-            Browse(editUrl.text.toString())
-        }
+        val editurl:EditText=findViewById(R.id.edittexturl)
+        buttonBrowse.setOnClickListener { openBrowser(editurl.text.toString()) }
 
-        
+        val buttonCall : Button =findViewById(R.id.button_call)
+        val editCall : EditText = findViewById(R.id.editcall)
+        buttonCall.setOnClickListener{ doCall(editCall.text.toString())}
+
+        val buttonOpenCallLog : Button =findViewById(R.id.button_callLog)
+        buttonOpenCallLog.setOnClickListener{openCallLog()}
+
+        val buttonGallery : Button = findViewById(R.id.button_gallery)
+        buttonGallery.setOnClickListener { openGallery() }
+
+        val buttonCamera : Button =findViewById(R.id.button_camera)
+        buttonCamera.setOnClickListener { openCamera() }
+
+        val buttonAlarm : Button =findViewById(R.id.button_alarm)
+        buttonAlarm.setOnClickListener { openAlarm() }
     }
-    fun Browse(url:String){
-        Intent(Intent.ACTION_VIEW, Uri.parse(url )).also{startActivity(it)}
+    fun openBrowser(url:String){
+        Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
+
     }
-    fun Call(number:String){
+
+    fun doCall(number:String){
         Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:$number")).also { startActivity(it) }
-    }
-    fun OpenCallLog(){
-        Intent(Intent.ACTION_VIEW).setType(CallLog.Calls.CONTENT_TYPE).also { startActivity(it) }
-    }
-    fun OpenGalllery(){
-        Intent(Intent.ACTION_VIEW).setType("image/*").also { startActivity(it) }
+
     }
 
-    fun OpenCamera(){
+    fun openCallLog(){
+        Intent(Intent.ACTION_VIEW).setType(CallLog.Calls.CONTENT_TYPE).also { startActivity(it) }
+
+    }
+
+    fun openGallery(){
+        Intent(Intent.ACTION_VIEW).setType("image/*").also { startActivity(it) }
+
+    }
+
+    fun openCamera(){
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { startActivity(it) }
 
     }
 
-    fun OpenAlarm(){
+    fun openAlarm(){
         Intent(AlarmClock.ACTION_SHOW_ALARMS).also { startActivity(it) }
 
     }
-
 
 
 }
